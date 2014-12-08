@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= form_tag do %>
+
+  <h2><%= @quiz.question %></h2>
+
+  <div class="field">
+    <%= text_field_tag(:user_answer) %>
+  </div>
+  
+  <div class="actions">
+    <%= submit_tag("Submit") %>
+  </div>
+<% end %>
+
+<h3>Correct answer:</h3>
+<p><%= @quiz.corret_answer %></p>
+
+<h3>Your answer:</h3>
+<p><%= @user_answer %></p>
+
+<% if "#{@user_answer}" == "#{@quiz.corret_answer}" %>
+ <iframe width="560" height="315" src="//<%= @quiz.video %>" frameborder="0" allowfullscreen></iframe>
+<% end %>
+
+<!-- p>
+  <strong>Article:</strong>
+  <%#= @quiz.article_id %>
+</p> -->
+
+<p><%= link_to 'Edit', edit_quiz_path(@quiz) %> |
+<%= link_to 'Back', quizzes_path %></p>

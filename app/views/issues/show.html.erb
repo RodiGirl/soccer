@@ -1,0 +1,81 @@
+<h2><%= @issue.title %></h2>
+<h5><%= time_ago_in_words(@issue.updated_at) %> ago</h5>
+
+
+<p><%= image_tag @issue.avatar.url(:thumb) %></p>
+
+<p>
+  <%= @issue.description %>
+</p>
+
+Total Articles: <%= @issue.articles.count %>
+<hr/>
+
+<% @issue.articles.find_each.with_index do |article, index| %>
+
+    
+    
+        <% if index == 0 %>
+          <h3><%= article.title %></h3>
+          <p><%= article.content.html_safe %></p>
+              <%= form_tag do %>
+                <h2><%= article.quiz.question %></h2>
+
+                <%= hidden_field_tag :quiz_id, article.quiz.id %> 
+
+                <div class="field">
+                  <%= text_field_tag(:user_answer) %>
+                </div>
+                
+                <div class="actions">
+                  <%= submit_tag("Submit") %>
+                </div>
+              <% end %>
+
+            <% if article.quiz.user_answer == article.quiz.corret_answer %>
+              <h3>Good Job! Onto the next article!</h3>
+              <% next %>
+                            
+            <% else %>
+              <% break %>
+            <% end %>             
+              
+
+      <% else %>
+          <h3><%= article.title %></h3>
+          <p><%= article.content.html_safe %></p>
+              <%= form_tag do %>
+                <h2><%= article.quiz.question %></h2>
+
+                <%= hidden_field_tag :quiz_id, article.quiz.id %> 
+
+                <div class="field">
+                  <%= text_field_tag(:user_answer) %>
+                </div>
+                
+                <div class="actions">
+                  <%= submit_tag("Submit") %>
+                </div>
+              <% end %>
+
+            <% if article.quiz.user_answer == article.quiz.corret_answer %>
+              <h3>Good Job! Onto the next article!</h3>
+              <% next %>
+                            
+            <% else %>
+              <% break %>
+            <% end %>    
+       <% end %>           
+               
+
+               
+         				
+      	    
+<% end %>
+
+
+
+
+
+<%= link_to 'Edit', edit_issue_path(@issue) %> |
+<%= link_to 'Back', issues_path %>
